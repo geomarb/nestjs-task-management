@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pg@adm.in
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    ports:
+      - 2345:80
+    volumes:
+      - vol_pgadmin:/var/lib/pgadmin
+
+  task_db:
+    image: postgres:15-alpine3.16
+    container_name: db_tasks
+    environment:
+      POSTGRES_USER: pg
+      POSTGRES_PASSWORD: pg123
+      POSTGRES_DB: postgres
+      POSTGRES_INITDB_ARGS: --data-checksums
+    ports:
+      - '5432:5432'
+    volumes:
+      - vol_pgdata_task:/var/lib/postgresql/data
+    
+volumes:
+  vol_pgdata_task:
+  vol_pgadmin:

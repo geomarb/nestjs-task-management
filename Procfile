@@ -1,0 +1,1 @@
+web: yearn start:prod
